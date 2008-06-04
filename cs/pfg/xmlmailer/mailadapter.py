@@ -33,45 +33,45 @@ class FormXMLMailerAdapter(FormMailerAdapter):
     def get_mail_text_in_xml(self, fields, request, **kwargs):
         text = StringIO()
 
-        text.write('<?xml version="1.0" encoding="utf-8">?')
-        text.write('<element>')
-        text.write('<header>')
-        text.write('<TITLE>')
-        text.write(aq_parent(self).Title())
-        text.write('</TITLE>')
-        text.write('</header>')
+        text.write(u'<?xml version="1.0" encoding="utf-8"?>')
+        text.write(u'<element>')
+        text.write(u'<header>')
+        text.write(u'<TITLE>')
+        text.write(aq_parent(self).Title().decode('utf-8'))
+        text.write(u'</TITLE>')
+        text.write(u'</header>')
         
-        if self.body_pre:
-            text.write('<foreword>')
-            text.write(self.body_pre)
+        if self.body_pre():
+            text.write(u'<foreword>')
+            text.write(self.body_pre().decode('utf-8'))
             text.write('</foreword>')
         
-        text.write('<element_list>')
+        text.write(u'<element_list>')
         for field in fields:
-            text.write('<item>')
-            text.write('<title>')
-            text.write(field.fgField['widget'].label)
-            text.write('</title>')
-            text.write('<text>')
-            text.write(field.htmlValue(request))
-            text.write('</text>')
-            text.write('</item>')                       
+            text.write(u'<item>')
+            text.write(u'<title>')
+            text.write(field.fgField.widget.label)
+            text.write(u'</title>')
+            text.write(u'<text>')
+            text.write(field.htmlValue(request).decode('utf-8'))
+            text.write(u'</text>')
+            text.write(u'</item>')                       
 
-        text.write('</element_list>')
+        text.write(u'</element_list>')
 
-        if self.body_post:
-            text.write('<epilogue>')
-            text.write(self.body_pre)
-            text.write('</epilogue>')
+        if self.body_post():
+            text.write(u'<epilogue>')
+            text.write(self.body_post().decode('utf-8'))
+            text.write(u'</epilogue>')
 
-        if self.body_footer:
-            text.write('<footer>')
-            text.write(self.body_pre)
-            text.write('</footer>')
+        if self.body_footer():
+            text.write(u'<footer>')
+            text.write(self.body_footer().decode('utf-8'))
+            text.write(u'</footer>')
             
 
-        text.write('</element>')
-        return text.getvalue()
+        text.write(u'</element>')
+        return text.getvalue().encode('utf-8')
         
 
     security.declarePrivate('get_mail_text')
@@ -126,12 +126,12 @@ class FormXMLMailerAdapter(FormMailerAdapter):
             outer.attach(msg)
 
         ctype = 'application/octet-stream'
-        maintyep, subtype = ctype.split('/', 1)
+        maintype, subtype = ctype.split('/', 1)
         p = MIMEBase(maintype, subtype)
         p.set_payload(body_xml)
         p.add_header('content-disposition', 'attachment', filename='form.xml')
         Encoders.encode_base64(p)
-        outr.attach(p)
+        outer.attach(p)
         return outer.as_string()
 
 
