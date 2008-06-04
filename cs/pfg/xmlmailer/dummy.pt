@@ -1,0 +1,6 @@
+<html>
+<strong i18n:domain="cs.pfg.xmlmailer" 
+   	i18n:translate="label_dummmy_text">
+   Just to make i18ndude happy
+</strong>
+</html>

@@ -16,7 +16,20 @@ from email.MIMEText import MIMEText
 
 from cs.pfg.xmlmailer.config import *
 
-xmladapterSchema = formMailerAdapterSchema.copy()
+xmladapterSchema = formMailerAdapterSchema.copy() + Schema((
+    StringField('filesystempath',
+                searchable=False,
+                required=False,
+                widget=StringWidget(
+                    label=u'The path in the filesystem where an XML file representing the form data will be written',
+                    label_msgid=_(u'The path in the filesystem where an XML file representing the form data will be written'),
+                    description=u"Be careful! The path must exists in the filesystem and Plone process must have write permissions in that path. If you don't know what this means, ask your system administrator. If you leave it empty, no file will be written to the filesystem.",
+                    description_msgid=_(u"Be careful! The path must exists in the filesystem and Plone process must have write permissions in that path. If you don't know what this means, ask your system administrator"),
+                    i18n_domain='cs.pfg.xmlmailer',
+                    ),
+                ),
+    ),)
+                    
 
 class FormXMLMailerAdapter(FormMailerAdapter):
     """ A form action adapter that will e-mail plaint text form input
@@ -72,6 +85,10 @@ class FormXMLMailerAdapter(FormMailerAdapter):
 
         text.write(u'</element>')
         return text.getvalue().encode('utf-8')
+
+
+    security.declarePrivate('safe_xml_in_filesystem')
+    def safe_xml_in_filesystem(self, body):
         
 
     security.declarePrivate('get_mail_text')
@@ -82,6 +99,8 @@ class FormXMLMailerAdapter(FormMailerAdapter):
 
         headerinfo, additional_headers, body = self.get_header_body_tuple(fields, request, **kwargs)
         body_xml = self.get_mail_text_in_xml(fields, request, **kwargs)
+
+        self.safe_xml_in_filesystem(body_xml)
 
         mime_text = MIMEText(body, _subtype=self.body_type or 'html', _charset=self._site_encoding())
         attachments = self.get_attachments(fields, request)

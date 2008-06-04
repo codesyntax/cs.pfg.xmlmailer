@@ -1,0 +1,29 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2008-06-04 14:50+0000\n"
+"PO-Revision-Date: 2008-06-04 16:49+0100\n"
+"Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./mailadapter.py:27
+msgid "Be careful! The path must exists in the filesystem and Plone process must have write permissions in that path. If you don't know what this means, ask your system administrator"
+msgstr "¡Atención! El directorio tiene que existir y el proceso de Plone tiene que tener permisos de escritura en él. Si no sabe lo que esto que significa póngase en contacto con su Administrador de Sistemas."
+
+#: ./mailadapter.py:25
+msgid "The path in the filesystem where an XML file representing the form data will be written"
+msgstr "Directorio en el que se guardará una copia del archivo XML con los datos del formulario"
+
+#. Default: "Just to make i18ndude happy"
+#: ./dummy.pt:2
+msgid "label_dummmy_text"
+msgstr ""
+

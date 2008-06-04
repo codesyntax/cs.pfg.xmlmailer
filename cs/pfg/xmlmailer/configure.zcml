@@ -2,10 +2,13 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
     xmlns:gs="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="cs.pfg.xmlmailer">
 
     <five:registerPackage package="." initialize=".initialize" />
     <include package="Products.GenericSetup" />
+
+    <i18n:registerTranslations directory="locales" />
 
     <gs:registerProfile
         name="default"
