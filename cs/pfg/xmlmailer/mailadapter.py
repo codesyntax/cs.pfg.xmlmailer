@@ -1,7 +1,9 @@
+import os
+
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_parent
 
-from Products.Archetypes.atapi import registerType
+from Products.Archetypes.atapi import *
 from Products.PloneFormGen.content.formMailerAdapter import FormMailerAdapter, formMailerAdapterSchema
 
 from StringIO import StringIO
@@ -15,6 +17,9 @@ from email.MIMEMultipart import MIMEMultipart
 from email.MIMEText import MIMEText
 
 from cs.pfg.xmlmailer.config import *
+from cs.pfg.xmlmailer import XMLMailerFactory as _
+
+from DateTime import DateTime
 
 xmladapterSchema = formMailerAdapterSchema.copy() + Schema((
     StringField('filesystempath',
@@ -89,7 +94,28 @@ class FormXMLMailerAdapter(FormMailerAdapter):
 
     security.declarePrivate('safe_xml_in_filesystem')
     def safe_xml_in_filesystem(self, body):
-        
+        path = self.getFilesystempath()
+        if path:
+           if os.path.exists(path):
+               if not path.endswith(os.path.sep):
+                   path = path + os.path.sep
+
+               current_date = DateTime().strftime('%Y-%m-%d-%H-%M')
+               formname = aq_parent(self).Title()
+               filename = '_'.join((current_date, formname)) + '.xml'
+               path = path + filename
+
+               try:
+                   fp = open(path, 'w')
+                   fp.write(body)
+                   fp.close()
+               except IOError:
+                   from logging import getLogger
+                   log = getLogger('cs.pfg.xmlmailer')
+                   log.info('IOError when creating the xml file. Please check the permissions on this path: %s' % path)
+                   
+
+                   
 
     security.declarePrivate('get_mail_text')
     def get_mail_text(self, fields, request, **kwargs):
