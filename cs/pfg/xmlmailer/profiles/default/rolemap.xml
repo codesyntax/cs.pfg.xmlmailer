@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<rolemap>
+  <permissions>
+    <permission name="cs.pfg.xmlmailer: Add XML Mailer Adapter"
+                acquire="True">
+      <role name="Owner"/>
+      <role name="Manager"/>
+    </permission>
+
+  </permissions>
+</rolemap>

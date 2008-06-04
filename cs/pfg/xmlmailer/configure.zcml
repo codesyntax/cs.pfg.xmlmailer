@@ -1,8 +1,19 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:five="http://namespaces.zope.org/five"
+    xmlns:gs="http://namespaces.zope.org/genericsetup"
     i18n_domain="cs.pfg.xmlmailer">
 
     <five:registerPackage package="." initialize=".initialize" />
+    <include package="Products.GenericSetup" />
+
+    <gs:registerProfile
+        name="default"
+        title="XML Mailer Adapter for PFG"
+        directory="profiles/default"
+        description="A form action adapter that will e-mail form input together with an XML representation of the form"
+        for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+        />
 
 </configure>
