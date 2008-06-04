@@ -5,4 +5,10 @@
     <element value="cs.pfg.xmlmailer: Add XML Mailer Adapter" />
   </property>
  </object>
+ <object name="navtree_properties">
+  <property name="metaTypesNotToList" type="lines" purge="False">
+   <element value="XML Mailer Adapter"/>
+  </property>
+ </object>
+
 </object>
