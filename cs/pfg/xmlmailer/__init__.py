@@ -4,6 +4,13 @@ from Products.CMFCore.permissions import setDefaultRoles
 
 from cs.pfg.xmlmailer import config
 
+try:
+    from zope.i18nmessageid import MessageFactory
+except ImportError:
+    from Products.CMFPlone.messagefactory_ import PloneMessageFactory as XMLMailerFactory
+else:
+    XMLMailerFactory = MessageFactory('cs.pfg.xmlmailer')
+
 
 def initialize(context):
     """Initializer called when used as a Zope 2 product.
