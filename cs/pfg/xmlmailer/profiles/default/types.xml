@@ -4,4 +4,6 @@
     meta_type="Factory-based Type Information with dynamic views"/>
  <object name="XMLMailerAdapter"
     meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="CodeFormThanksPage"
+    meta_type="Factory-based Type Information with dynamic views"/>
 </object>

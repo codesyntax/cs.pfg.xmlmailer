@@ -6,6 +6,10 @@
       <role name="Owner"/>
       <role name="Manager"/>
     </permission>
-
+    <permission name="cs.pfg.xmlmailer: Add Code Form Thanks Page"
+                acquire="True">
+      <role name="Owner"/>
+      <role name="Manager"/>
+    </permission>
   </permissions>
 </rolemap>

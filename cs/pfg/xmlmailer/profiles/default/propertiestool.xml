@@ -4,10 +4,14 @@
   <property name="permissions_used" type="lines" purge="False">
     <element value="cs.pfg.xmlmailer: Add XML Mailer Adapter" />
   </property>
+  <property name="permissions_used" type="lines" purge="False">
+    <element value="cs.pfg.xmlmailer: Add Code Form Thanks Page" />
+  </property>
  </object>
  <object name="navtree_properties">
   <property name="metaTypesNotToList" type="lines" purge="False">
    <element value="XMLMailerAdapter"/>
+   <element value="CodeFormThanksPage"/>
   </property>
  </object>
 

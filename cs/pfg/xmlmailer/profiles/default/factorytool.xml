@@ -2,5 +2,6 @@
 <object name="portal_factory">
  <factorytypes>
   <type portal_type="XMLMailerAdapter"/>
+  <type portal_type="CodeFormThanksPage"/>
  </factorytypes>
 </object>

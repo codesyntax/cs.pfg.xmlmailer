@@ -49,6 +49,8 @@ class FormXMLMailerAdapter(FormMailerAdapter):
 
     security.declarePrivate('get_mail_text_in_xml')
     def get_mail_text_in_xml(self, fields, request, **kwargs):
+        #import pdb;pdb.set_trace()
+        
         text = StringIO()
 
         text.write(u'<?xml version="1.0" encoding="utf-8"?>')
@@ -76,7 +78,10 @@ class FormXMLMailerAdapter(FormMailerAdapter):
             text.write(u'</item>')                       
 
         text.write(u'</element_list>')
-
+        code=self.code(request)
+        text.write(u'<code>')
+        text.write(code.decode('utf-8'))
+        text.write(u'</code>')
         if self.body_post():
             text.write(u'<epilogue>')
             text.write(self.body_post().decode('utf-8'))
@@ -122,7 +127,8 @@ class FormXMLMailerAdapter(FormMailerAdapter):
         """ Get header and body of e-amil as text (string)
             This will create both parts of the e-mail: text and the XML file
         """
-
+        #import pdb;pdb.set_trace()
+        
         headerinfo, additional_headers, body = self.get_header_body_tuple(fields, request, **kwargs)
         body_xml = self.get_mail_text_in_xml(fields, request, **kwargs)
 
@@ -180,4 +186,24 @@ class FormXMLMailerAdapter(FormMailerAdapter):
         return outer.as_string()
 
 
+
+    security.declarePublic('getBody_pre')
+    def getBody_pre(self):
+        """ get expanded mail body prefix """
+        #import pdb;pdb.set_trace()
+        code=self.code(self.REQUEST)
+        return code
+
+
+    def code(self, request):
+        NAN=request.form["nan"]
+        zenbakia=request.form["eskabide-zenbakia"]
+        from DateTime import DateTime
+        urtea=str(DateTime().year())
+        hilabetea=str(DateTime().month())
+        eguna=str(DateTime().day())
+        ordua=str(DateTime().hour())
+        minutua=str(DateTime().minute())
+        code=NAN + urtea + hilabetea + eguna + zenbakia + ordua + minutua
+        return code
 registerType(FormXMLMailerAdapter, PROJECTNAME)

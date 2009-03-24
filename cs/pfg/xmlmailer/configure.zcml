@@ -7,7 +7,6 @@
 
     <five:registerPackage package="." initialize=".initialize" />
     <include package="Products.GenericSetup" />
-
     <i18n:registerTranslations directory="locales" />
 
     <gs:registerProfile

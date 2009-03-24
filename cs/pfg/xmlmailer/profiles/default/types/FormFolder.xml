@@ -2,5 +2,6 @@
 <object name="FormFolder">
  <property name="allowed_content_types" purge="False">
   <element value="XMLMailerAdapter" />
+  <element value="CodeFormThanksPage" />
  </property>
 </object>
